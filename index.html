@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Rose for Dhruti 🌹</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    min-height:100vh;
+    background:linear-gradient(-45deg,#1a1a1a,#2c2c2c,#1a1a1a);
+    background-size:400% 400%;
+    animation:bgMove 10s ease infinite;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    overflow:hidden;
+    font-family:'Poppins',sans-serif;
+}
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+.card{
+    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.08);
+    border-radius:22px;
+    padding:28px;
+    max-width:420px;
+    width:90%;
+    text-align:center;
+    box-shadow:0 25px 60px rgba(0,0,0,.4);
+    animation:pop 1s ease;
+}
+@keyframes pop{
+    from{opacity:0;transform:scale(.85)}
+    to{opacity:1;transform:scale(1)}
+}
+.name{
+    font-family:'Great Vibes',cursive;
+    font-size:40px;
+    margin-bottom:10px;
+}
+.colors{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:25px;
+}
+.color{
+    height:55px;
+    border-radius:50%;
+    cursor:pointer;
+    transition:.4s;
+    box-shadow:0 0 15px rgba(255,255,255,.3);
+}
+.color:hover{
+    transform:scale(1.15) rotate(8deg);
+}
+.result{
+    display:none;
+}
+.rose{
+    font-size:100px;
+    animation:grow 1.5s ease forwards;
+}
+@keyframes grow{
+    from{transform:scale(0)}
+    to{transform:scale(1)}
+}
+.shayari{
+    margin-top:15px;
+    font-size:16px;
+    line-height:1.7;
+    animation:fadeUp 2s ease;
+}
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.footer{
+    margin-top:20px;
+    font-size:13px;
+    opacity:.8;
+}
+.petal{
+    position:absolute;
+    top:-10%;
+    font-size:18px;
+    animation:fall linear infinite;
+}
+@keyframes fall{
+    to{transform:translateY(120vh) rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="start">
+    <h3>एक सवाल है 🌸</h3>
+    <div class="name">Dhruti</div>
+    <p>तुम्हारा favourite colour कौन-सा है?</p>
+
+    <div class="colors">
+        <div class="color" style="background:linear-gradient(#7A0C0C,#FF4E50)" onclick="show('red')"></div>
+        <div class="color" style="background:linear-gradient(#FF6FB1,#FFC1D9)" onclick="show('pink')"></div>
+        <div class="color" style="background:linear-gradient(#0F2027,#2C5364)" onclick="show('blue')"></div>
+        <div class="color" style="background:linear-gradient(#41295A,#2F0743)" onclick="show('purple')"></div>
+        <div class="color" style="background:linear-gradient(#FDFCFB,#E2D1C3)" onclick="show('white')"></div>
+        <div class="color" style="background:linear-gradient(#F7971E,#FFD200)" onclick="show('yellow')"></div>
+        <div class="color" style="background:linear-gradient(#141E30,#243B55)" onclick="show('black')"></div>
+    </div>
+</div>
+
+<div class="card result" id="result">
+    <div class="name">Dhruti 🌹</div>
+    <div class="rose">🌹</div>
+    <div class="shayari" id="shayari"></div>
+    <div class="footer">Happy Rose Day 💙<br>– From your bestest friend</div>
+</div>
+
+<script>
+const texts={
+red:"ये गुलाब सिर्फ एक फूल नहीं,<br>मेरी दुआओं का रंग है।<br>दोस्ती में जो खामोशी से साथ निभाए,<br>वही सबसे कीमती संग है।",
+pink:"गुलाबी सा ये फूल,<br>तुम्हारी मुस्कान जैसा है।<br>मेरी ज़िंदगी की सबसे सच्ची आदत,<br>तुम्हारा साथ होना जैसा है।",
+blue:"नीला गुलाब कहता है,<br>तुम आम नहीं हो।<br>मेरी ज़िंदगी में जो जगह तुम्हारी है,<br>वो किसी और के नाम नहीं हो।",
+purple:"बैंगनी गुलाब सा रिश्ता है हमारा,<br>न दिखावा, न शोर।<br>बस भरोसा इतना गहरा,<br>जैसे दोस्ती खुद हो गौरव का जोर।",
+white:"सफेद गुलाब की तरह,<br>हमारी दोस्ती साफ है।<br>बिना किसी मतलब के,<br>बस दिल से जुड़ा एक ख्वाब है।",
+yellow:"पीला गुलाब हँसी लाया,<br>जैसे तुम हर दिन लाती हो।<br>मेरी थकी ज़िंदगी में,<br>बिना कहे खुशियाँ बरसाती हो।",
+black:"काला गुलाब कहता है,<br>अलग होना गलत नहीं।<br>जो हर रंग से ऊपर हो,<br>वैसी दोस्ती आम नहीं।"
+}
+function show(c){
+    document.getElementById("start").style.display="none";
+    document.getElementById("result").style.display="block";
+    document.getElementById("shayari").innerHTML=texts[c];
+    petals();
+}
+function petals(){
+    for(let i=0;i<20;i++){
+        let p=document.createElement("div");
+        p.className="petal";
+        p.innerHTML="🌸";
+        p.style.left=Math.random()*100+"vw";
+        p.style.animationDuration=5+Math.random()*5+"s";
+        document.body.appendChild(p);
+    }
+}
+</script>
+
+</body>
+</html>
