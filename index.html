@@ -9,147 +9,267 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+
 body{
-    min-height:100vh;
-    background:linear-gradient(-45deg,#1a1a1a,#2c2c2c,#1a1a1a);
-    background-size:400% 400%;
-    animation:bgMove 10s ease infinite;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    overflow:hidden;
-    font-family:'Poppins',sans-serif;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  color:#fff;
+  background:
+    radial-gradient(60% 40% at 10% 10%, #ff7eb355, transparent 60%),
+    radial-gradient(50% 40% at 90% 20%, #7f00ff44, transparent 60%),
+    radial-gradient(40% 30% at 50% 90%, #43cea244, transparent 60%),
+    linear-gradient(135deg,#0f0f14,#1b1b22);
+  transition:background 1s ease;
 }
-@keyframes bgMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+
+/* love overlay */
+body.love::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top,#ffffff22,transparent 40%),
+    radial-gradient(circle at bottom,#ffffff11,transparent 45%);
+  pointer-events:none;
 }
+
+/* card */
 .card{
-    backdrop-filter:blur(12px);
-    background:rgba(255,255,255,0.08);
-    border-radius:22px;
-    padding:28px;
-    max-width:420px;
-    width:90%;
-    text-align:center;
-    box-shadow:0 25px 60px rgba(0,0,0,.4);
-    animation:pop 1s ease;
+  width:min(92vw,420px);
+  background:rgba(255,255,255,.10);
+  backdrop-filter:blur(18px);
+  border-radius:28px;
+  padding:26px 22px 28px;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
+  animation:pop .8s ease;
 }
 @keyframes pop{
-    from{opacity:0;transform:scale(.85)}
-    to{opacity:1;transform:scale(1)}
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
 }
+
+/* text */
+.small{opacity:.9;font-size:14px}
 .name{
-    font-family:'Great Vibes',cursive;
-    font-size:40px;
-    margin-bottom:10px;
+  font-family:'Great Vibes',cursive;
+  font-size:44px;
+  margin:6px 0;
 }
+.question{font-size:15px;opacity:.95}
+
+/* squircle grid */
 .colors{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-top:25px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-top:24px;
+  justify-items:center;
 }
+
+/* squircle */
 .color{
-    height:55px;
-    border-radius:50%;
-    cursor:pointer;
-    transition:.4s;
-    box-shadow:0 0 15px rgba(255,255,255,.3);
+  width:66px;height:66px;
+  border-radius:22px;
+  cursor:pointer;
+  position:relative;
+  transition:.45s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
 }
-.color:hover{
-    transform:scale(1.15) rotate(8deg);
+.color::after{
+  content:"";
+  position:absolute;
+  top:10%;left:10%;
+  width:35%;height:35%;
+  border-radius:14px;
+  background:rgba(255,255,255,.35);
 }
-.result{
-    display:none;
+.color:hover{transform:scale(1.12)}
+.color.active{
+  transform:scale(1.15);
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.8),
+    0 0 30px rgba(255,255,255,.9),
+    0 20px 45px rgba(0,0,0,.65);
 }
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+  100%{transform:scale(1)}
+}
+.color.pulse{animation:pulse .25s ease}
+
+/* result */
+.result{display:none}
 .rose{
-    font-size:100px;
-    animation:grow 1.5s ease forwards;
+  font-size:96px;
+  animation:grow 1.2s ease forwards;
 }
-@keyframes grow{
-    from{transform:scale(0)}
-    to{transform:scale(1)}
-}
+@keyframes grow{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* shayari styling */
 .shayari{
-    margin-top:15px;
-    font-size:16px;
-    line-height:1.7;
-    animation:fadeUp 2s ease;
+  margin-top:14px;
+  line-height:1.8;
+  font-size:15px;
 }
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(20px)}
-    to{opacity:1;transform:translateY(0)}
+.shayari span{
+  display:block;
+  font-weight:500;
+  text-shadow:0 2px 10px rgba(0,0,0,.35);
 }
+
+/* footer */
 .footer{
-    margin-top:20px;
-    font-size:13px;
-    opacity:.8;
+  margin-top:18px;
+  font-size:13px;
+  opacity:.85;
 }
-.petal{
-    position:absolute;
-    top:-10%;
-    font-size:18px;
-    animation:fall linear infinite;
+
+/* hearts */
+.heart{
+  position:fixed;
+  bottom:-10%;
+  font-size:16px;
+  opacity:.6;
+  animation:floatUp linear infinite;
 }
-@keyframes fall{
-    to{transform:translateY(120vh) rotate(360deg)}
+@keyframes floatUp{
+  to{transform:translateY(-120vh) rotate(360deg);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
+<!-- START -->
 <div class="card" id="start">
-    <h3>एक सवाल है 🌸</h3>
-    <div class="name">Dhruti</div>
-    <p>तुम्हारा favourite colour कौन-सा है?</p>
+  <div class="small">एक सवाल है 🌸</div>
+  <div class="name">Dhruti</div>
+  <div class="question">तुम्हारा favourite colour कौन-सा है?</div>
 
-    <div class="colors">
-        <div class="color" style="background:linear-gradient(#7A0C0C,#FF4E50)" onclick="show('red')"></div>
-        <div class="color" style="background:linear-gradient(#FF6FB1,#FFC1D9)" onclick="show('pink')"></div>
-        <div class="color" style="background:linear-gradient(#0F2027,#2C5364)" onclick="show('blue')"></div>
-        <div class="color" style="background:linear-gradient(#41295A,#2F0743)" onclick="show('purple')"></div>
-        <div class="color" style="background:linear-gradient(#FDFCFB,#E2D1C3)" onclick="show('white')"></div>
-        <div class="color" style="background:linear-gradient(#F7971E,#FFD200)" onclick="show('yellow')"></div>
-        <div class="color" style="background:linear-gradient(#141E30,#243B55)" onclick="show('black')"></div>
-    </div>
+  <div class="colors">
+    <div class="color" style="background:linear-gradient(135deg,#ff758c,#ff7eb3)" onclick="pick(this,'red')"></div>
+    <div class="color" style="background:linear-gradient(135deg,#f857a6,#ff5858)" onclick="pick(this,'pink')"></div>
+    <div class="color" style="background:linear-gradient(135deg,#43cea2,#185a9d)" onclick="pick(this,'blue')"></div>
+    <div class="color" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)" onclick="pick(this,'purple')"></div>
+    <div class="color" style="background:linear-gradient(135deg,#fdfcfb,#e2d1c3)" onclick="pick(this,'white')"></div>
+    <div class="color" style="background:linear-gradient(135deg,#f6d365,#fda085)" onclick="pick(this,'yellow')"></div>
+    <div class="color" style="background:linear-gradient(135deg,#232526,#414345)" onclick="pick(this,'black')"></div>
+    <div class="color" style="background:linear-gradient(135deg,#ff9a8b,#ff6a88)" onclick="pick(this,'peach')"></div>
+  </div>
 </div>
 
+<!-- RESULT -->
 <div class="card result" id="result">
-    <div class="name">Dhruti 🌹</div>
-    <div class="rose">🌹</div>
-    <div class="shayari" id="shayari"></div>
-    <div class="footer">Happy Rose Day 💙<br>– From your bestest friend</div>
+  <div class="name">Dhruti 🌹</div>
+  <div class="rose">🌹</div>
+  <div class="shayari" id="shayari"></div>
+  <div class="footer">Happy Rose Day 💙<br>– From your bestest friend</div>
 </div>
 
 <script>
-const texts={
-red:"ये गुलाब सिर्फ एक फूल नहीं,<br>मेरी दुआओं का रंग है।<br>दोस्ती में जो खामोशी से साथ निभाए,<br>वही सबसे कीमती संग है।",
-pink:"गुलाबी सा ये फूल,<br>तुम्हारी मुस्कान जैसा है।<br>मेरी ज़िंदगी की सबसे सच्ची आदत,<br>तुम्हारा साथ होना जैसा है।",
-blue:"नीला गुलाब कहता है,<br>तुम आम नहीं हो।<br>मेरी ज़िंदगी में जो जगह तुम्हारी है,<br>वो किसी और के नाम नहीं हो।",
-purple:"बैंगनी गुलाब सा रिश्ता है हमारा,<br>न दिखावा, न शोर।<br>बस भरोसा इतना गहरा,<br>जैसे दोस्ती खुद हो गौरव का जोर।",
-white:"सफेद गुलाब की तरह,<br>हमारी दोस्ती साफ है।<br>बिना किसी मतलब के,<br>बस दिल से जुड़ा एक ख्वाब है।",
-yellow:"पीला गुलाब हँसी लाया,<br>जैसे तुम हर दिन लाती हो।<br>मेरी थकी ज़िंदगी में,<br>बिना कहे खुशियाँ बरसाती हो।",
-black:"काला गुलाब कहता है,<br>अलग होना गलत नहीं।<br>जो हर रंग से ऊपर हो,<br>वैसी दोस्ती आम नहीं।"
+const bg={
+ red:"linear-gradient(135deg,#ff758c,#ff7eb3)",
+ pink:"linear-gradient(135deg,#f857a6,#ff5858)",
+ blue:"linear-gradient(135deg,#43cea2,#185a9d)",
+ purple:"linear-gradient(135deg,#a18cd1,#fbc2eb)",
+ white:"linear-gradient(135deg,#fdfcfb,#e2d1c3)",
+ yellow:"linear-gradient(135deg,#f6d365,#fda085)",
+ black:"linear-gradient(135deg,#232526,#414345)",
+ peach:"linear-gradient(135deg,#ff9a8b,#ff6a88)"
+};
+
+const shayari={
+ red:[
+  ["ये गुलाब सिर्फ एक फूल नहीं,", "#ffe1e8"],
+  ["मेरी दुआओं का रंग है।", "#fff"],
+  ["दोस्ती में जो खामोशी से साथ निभाए,", "#ffd1dc"],
+  ["वही सबसे कीमती संग है।", "#fff"]
+ ],
+ pink:[
+  ["गुलाबी सा ये फूल,", "#fff0f6"],
+  ["तुम्हारी मुस्कान जैसा है।", "#fff"],
+  ["मेरी ज़िंदगी की सबसे सच्ची आदत,", "#ffd6e8"],
+  ["तुम्हारा साथ होना जैसा है।", "#fff"]
+ ],
+ blue:[
+  ["नीला गुलाब कहता है,", "#d6f5ff"],
+  ["तुम आम नहीं हो।", "#fff"],
+  ["मेरी ज़िंदगी में जो जगह तुम्हारी है,", "#bde7ff"],
+  ["वो किसी और के नाम नहीं हो।", "#fff"]
+ ],
+ purple:[
+  ["बैंगनी गुलाब सा रिश्ता है हमारा,", "#f1dcff"],
+  ["न दिखावा, न शोर।", "#fff"],
+  ["बस भरोसा इतना गहरा,", "#e6c7ff"],
+  ["जैसे दोस्ती खुद हो गौरव का जोर।", "#fff"]
+ ],
+ white:[
+  ["सफेद गुलाब की तरह,", "#333"],
+  ["हमारी दोस्ती साफ है।", "#111"],
+  ["बिना किसी मतलब के,", "#444"],
+  ["बस दिल से जुड़ा एक ख्वाब है।", "#111"]
+ ],
+ yellow:[
+  ["पीला गुलाब हँसी लाया,", "#fff6d1"],
+  ["जैसे तुम हर दिन लाती हो।", "#fff"],
+  ["मेरी थकी ज़िंदगी में,", "#ffe9a3"],
+  ["बिना कहे खुशियाँ बरसाती हो।", "#fff"]
+ ],
+ black:[
+  ["काला गुलाब कहता है,", "#e0e0e0"],
+  ["अलग होना गलत नहीं।", "#fff"],
+  ["जो हर रंग से ऊपर हो,", "#cfcfcf"],
+  ["वैसी दोस्ती आम नहीं।", "#fff"]
+ ],
+ peach:[
+  ["पीच सा ये गुलाब,", "#fff1e6"],
+  ["नरम सा एहसास लाया।", "#fff"],
+  ["मेरी हर उलझन में,", "#ffd9c9"],
+  ["तुमने ही सुकून सिखाया।", "#fff"]
+ ]
+};
+
+function pick(el,c){
+ document.querySelectorAll('.color').forEach(x=>x.classList.remove('active'));
+ el.classList.add('active','pulse');
+ setTimeout(()=>el.classList.remove('pulse'),250);
+
+ document.body.style.background=bg[c];
+ document.body.classList.add('love');
+
+ setTimeout(()=>{
+  document.getElementById('start').style.display="none";
+  document.getElementById('result').style.display="block";
+
+  const box=document.getElementById('shayari');
+  box.innerHTML="";
+  shayari[c].forEach(l=>{
+    const s=document.createElement('span');
+    s.textContent=l[0];
+    s.style.color=l[1];
+    box.appendChild(s);
+  });
+ },550);
+
+ hearts();
 }
-function show(c){
-    document.getElementById("start").style.display="none";
-    document.getElementById("result").style.display="block";
-    document.getElementById("shayari").innerHTML=texts[c];
-    petals();
-}
-function petals(){
-    for(let i=0;i<20;i++){
-        let p=document.createElement("div");
-        p.className="petal";
-        p.innerHTML="🌸";
-        p.style.left=Math.random()*100+"vw";
-        p.style.animationDuration=5+Math.random()*5+"s";
-        document.body.appendChild(p);
-    }
+
+function hearts(){
+ for(let i=0;i<10;i++){
+  const h=document.createElement('div');
+  h.className="heart";
+  h.textContent="💗";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(5+Math.random()*4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),9000);
+ }
 }
 </script>
 
